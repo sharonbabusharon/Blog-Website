@@ -1,8 +1,10 @@
 const express=require("express");
 const bodyParser=require("body-parser");
 const ejs=require("ejs");
+const _ = require("lodash");
 
 let posts=[];
+let seperatePost=[];
 
 
 
@@ -48,6 +50,30 @@ app.post("/compose",(req,res)=>{
 	posts.push(post);
 	res.redirect("/")
 })
+
+app.get("/posts/:postName",function(req,res){
+	let postInput=_.lowerCase(req.params.postName)
+
+	
+
+	posts.forEach(function(post){
+
+		let blogTitles=_.lowerCase(post.title)
+		
+  
+
+		if(blogTitles==postInput){
+
+		
+			res.render("post",{searchedTitle:post.title,searchedContent:post.content})
+		
+
+		}
+		
+	})
+
+	})
+
 
 
 
